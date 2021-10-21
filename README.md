@@ -1,26 +1,17 @@
-# The_B0ts
 
 
-We are Delta_Raiders. We do programming on C++. This is our project on theme "maze".
+
+<h1 align="center">Hi 👋, We are We are Delta_Raiders. We do programming on C++. This is our project on theme "maze".</h1>
 
 - Yanislav Stoyanov (SCRUM TRAINER) - YLStoyanov19@codingburgas.bg
 - Ivaylo Abadzhiev(BACK-END DEVELOPER) - IMAbadzhiev19@codingburgas.bg
 - Petar Spasov (QA)- PZSpasov19@codingburgas.bg
 - Dimitar Berdankov (FRONT-END DEVELOPER) - DHBerdankov19@codingburgas.bg
 
-
----
-
-### Languages and Tools:
-
-<img align="left" alt="Visual Studio Code" width="26px" src="https://www.google.com/url?sa=i&url=https%3A%2F%2F1000logos.net%2Fvisual-studio-logo%2F&psig=AOvVaw3VXuw-MJASc4N8X8Q8uNqK&ust=1634922127952000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCLiUpu792_MCFQAAAAAdAAAAABAO" />
-<img align="left" alt="Git" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png" />
-<img align="left" alt="GitHub" width="26px" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" />
-
-
-.
----
-
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://www.w3schools.com/cpp/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a><a href="https://git-scm.com/" target="_blank"> <img src="https://play-lh.googleusercontent.com/jKU64njy8urP89V1O63eJxMtvWjDGETPlHVIhDv9WZAYzsSxRWyWZkUlBJZj_HbkHA" alt="teams" width="40" height="40"/> </a> 
+<a href="https://git-scm.com/" target="_blank"> <img src="https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVHmPmbbBxAukDnlO7DarDW0b-kEIHa8SQ" alt="discord" width="40" height="40"/> </a> 
+</p>
 
 
 
