@@ -18,14 +18,14 @@ void showMenu()
 	bool flag = true;
 	int y = 2, choice = 0;
 
-	gotoXY(5, y - 2); cout << "Maze Menu";
-	gotoXY(5, y); cout << "->";
+	gotoXY(5, 0); cout << "Maze Menu";
+	gotoXY(5, 2); cout << "->";
 
 	while (flag)
 	{
-		gotoXY(7, y); cout << "Game";
-		gotoXY(7, y + 1); cout << "Options";
-		gotoXY(7, y + 2); cout << "Quit";
+		gotoXY(7, 2); cout << "Game";
+		gotoXY(7, 3); cout << "Options";
+		gotoXY(7, 4); cout << "Quit";
 
 		system("pause>nul");
 
@@ -71,5 +71,5 @@ void showMenu()
 
 int main()
 {
-
+	showMenu();
 }
