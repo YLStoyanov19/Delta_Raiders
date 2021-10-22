@@ -3,6 +3,15 @@
 #include<conio.h>
 using namespace std;
 
+class Maze {
+public:
+	Maze();
+private:
+	char** maze;
+	unsigned short rows, cols;
+	short currentRow, currentColumn;
+};
+
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD position;
 
