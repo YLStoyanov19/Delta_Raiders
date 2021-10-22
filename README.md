@@ -1,10 +1,10 @@
 
 
 
-<h1 align="center">Hi 👋, We are We are Delta_Raiders. We do programming on C++. This is our project on theme "maze".</h1>
+<h1 align="center">Hi 👋, We are Delta_Raiders. We do programming on C++. This is our project on theme "maze".</h1>
 
 - Yanislav Stoyanov (SCRUM TRAINER) - YLStoyanov19@codingburgas.bg
-- Ivaylo Abadzhiev(BACK-END DEVELOPER) - IMAbadzhiev19@codingburgas.bg
+- Ivaylo Abadzhiev (BACK-END DEVELOPER) - IMAbadzhiev19@codingburgas.bg
 - Petar Spasov (QA)- PZSpasov19@codingburgas.bg
 - Dimitar Berdankov (FRONT-END DEVELOPER) - DHBerdankov19@codingburgas.bg
 
