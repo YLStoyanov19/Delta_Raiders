@@ -89,31 +89,32 @@ void showMenu()
 	bool flag = true;
 	int y = 2, choice = 0;
 
-	gotoXY(5, 0); cout << "Maze Menu";
-	gotoXY(5, 2); cout << "->";
+	gotoXY(y + 3, y - 2); cout << "Maze Menu";
+	gotoXY(y + 1, y); cout << "->";
 
 	while (flag)
 	{
-		gotoXY(7, 2); cout << "Game";
-		gotoXY(7, 3); cout << "Options";
-		gotoXY(7, 4); cout << "Quit";
+		gotoXY(5, 2); cout << "Maze game";
+		gotoXY(5, 3); cout << "Random Map";
+		gotoXY(5, 4); cout << "Options";
+		gotoXY(5, 5); cout << "Quit";
 
 		system("pause>nul");
 
-		if (GetAsyncKeyState(VK_DOWN) && y != 4)
+		if (GetAsyncKeyState(VK_DOWN) && y != 5)
 		{
-			gotoXY(5, y); cout << "  ";
+			gotoXY(3, y); cout << "  ";
 			y++;
-			gotoXY(5, y); cout << "->";
+			gotoXY(3, y); cout << "->";
 			choice++;
 			continue;
 		}
 
 		if (GetAsyncKeyState(VK_UP) && y != 2)
 		{
-			gotoXY(5, y); cout << "  ";
+			gotoXY(3, y); cout << "  ";
 			y--;
-			gotoXY(5, y); cout << "->";
+			gotoXY(3, y); cout << "->";
 			choice--;
 			continue;
 		}
@@ -133,7 +134,27 @@ void showMenu()
 			}break;
 
 			case 2: {
-				exit(1);
+
+			}break;
+
+			case 3: {
+				char a; 
+				cout << "Do you really want to quit? Y/N: "; cin >> a;
+
+				while (true)
+				{
+					if (a == 'Y')
+					{
+						cout << "You have successfully quited ..." << endl;
+					}
+					else if (a == 'N')
+					{
+						system("cls");
+						showMenu();
+					}
+					else
+						cout << "\nYou should type \"Y or N\": "; cin >> a;
+				}
 			}break;
 			}
 		}
