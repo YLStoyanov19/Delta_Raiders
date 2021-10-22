@@ -15,6 +15,18 @@ private:
 	short currentRow, currentColumn;
 };
 
+void Maze::Show()
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			cout << maze[i][j];
+		}
+		cout << "\n";
+	}
+}
+
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD position;
 
