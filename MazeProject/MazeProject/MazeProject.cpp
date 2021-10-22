@@ -145,7 +145,9 @@ void showMenu()
 				{
 					if (a == 'Y')
 					{
+						system("cls");
 						cout << "You have successfully quited ..." << endl;
+						exit(0);
 					}
 					else if (a == 'N')
 					{
