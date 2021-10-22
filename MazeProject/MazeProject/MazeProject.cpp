@@ -6,6 +6,7 @@ using namespace std;
 class Maze {
 public:
 	Maze(short r, short c) : rows(r), cols(c), currentRow(0), currentColumn(0), maze(nullptr) { Init(); };
+	~Maze();
 	void Show();
 private:
 	bool Init();
