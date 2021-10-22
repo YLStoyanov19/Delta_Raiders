@@ -27,6 +27,15 @@ void Maze::Show()
 	}
 }
 
+Maze::~Maze()
+{
+	for (int i = 0; i < rows; i++)
+	{
+		delete[] maze[i];
+	}
+	delete[] maze;
+}
+
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD position;
 
