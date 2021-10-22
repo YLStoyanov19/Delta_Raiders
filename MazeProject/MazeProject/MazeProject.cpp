@@ -5,8 +5,10 @@ using namespace std;
 
 class Maze {
 public:
-	Maze();
+	Maze(short r, short c) : rows(r), cols(c), currentRow(0), currentColumn(0), maze(nullptr) { Init(); };
+	void Show();
 private:
+	bool Init();
 	char** maze;
 	unsigned short rows, cols;
 	short currentRow, currentColumn;
