@@ -1,6 +1,7 @@
 #include<iostream>
 #include<windows.h> 
 #include<conio.h>
+#include<fstream> // For the dynamic maze path
 using namespace std;
 
 class Maze {
@@ -14,6 +15,43 @@ private:
 	unsigned short rows, cols;
 	short currentRow, currentColumn;
 };
+
+bool Maze::Init()
+{
+	ifstream fi;
+	unsigned short r, c;
+
+	maze = new char* [rows];
+	if (!maze) // Checks if the memory is allocated properly
+		return false;
+
+	for (r = 0; r < rows; r++)
+	{
+		maze[r] = new char[cols];
+
+		if (!maze[r]) //Checks if the memory is allocated properly
+			return false;
+
+		for (c = 0; c < cols; maze[r][c] = '*', c++);
+	}
+
+	fi.open("maze.txt", ios::in);
+
+	if (fi.fail()) // Checks if the file is opened properly
+		return false;
+
+	unsigned short n;
+	fi >> n;
+
+	for (int i = 0; i < n; i++)
+	{
+		fi >> r >> c;
+		maze[r][c] = ' ';
+	}
+
+	fi.close();
+	return true;
+}
 
 void Maze::Show()
 {
