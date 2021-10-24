@@ -2,6 +2,7 @@
 #include<windows.h> 
 #include<conio.h>
 #include<fstream>
+
 using namespace std;
 
 class Maze {
@@ -57,9 +58,9 @@ bool Maze::Init()
 
 void Maze::Show()
 {
-	for (int i = 0; i < rows; i++)
+	for (short i = 0; i < rows; i++)
 	{
-		for (int j = 0; j < cols; j++)
+		for (short j = 0; j < cols; j++)
 		{
 			cout << maze[i][j];
 		}
@@ -91,6 +92,52 @@ short Maze::GetKeyCode()
 
 	return keyCode;
 }
+
+bool Maze::Go()
+{
+	short int k, newRow, newColumn;
+
+	do {
+		newRow = currentRow;
+		newColumn = currentColumn;
+
+		k = GetKeyCode();
+
+		switch (k)
+		{
+		case 72:{
+			newRow--;
+		}break;
+
+		case 80: {
+			newRow++;
+		}break;
+
+		case 77: {
+			newColumn++;
+		}break;
+
+		case 75: {
+			newColumn--;
+		}break;
+
+		default: Beep(500, 250);
+
+		} //switch
+
+		if ((newRow >= 0) && (newRow < rows) && (currentRow >= 0) && (currentRow < cols) && (maze[newRow][newColumn] == ' '))
+		{
+			maze[currentRow][currentColumn] = ' ';
+			currentRow = newRow;
+			currentColumn = newColumn;
+			maze[currentRow][currentColumn] = 'X';
+		}
+		else
+			Beep(500, 250);
+	} while ((currentRow != rows - 1) || (currentColumn != cols - 1));
+
+	return false;
+} //Maze::Go()
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD position;
