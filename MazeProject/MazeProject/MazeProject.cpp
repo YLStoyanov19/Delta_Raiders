@@ -152,17 +152,22 @@ void gotoXY(int x, int y)
 void showMenu()
 {
 	bool flag = true;
-	int y = 2, choice = 0;
+	int y = 2, choice = 0, x = 2;
 
-	gotoXY(y + 3, y - 2); cout << "Maze Menu";
-	gotoXY(y + 1, y); cout << "->";
+	gotoXY(x + 3, y - 2); cout << "Maze Menu";
+	gotoXY(x + 1, y); cout << "->";
 
 	while (flag)
 	{
-		gotoXY(5, 2); cout << "Maze game";
-		gotoXY(5, 3); cout << "Random Map";
-		gotoXY(5, 4); cout << "Options";
-		gotoXY(5, 5); cout << "Quit";
+		x = 2;
+
+		gotoXY(5, x); cout << "Maze game";
+		x++;
+		gotoXY(5, x); cout << "Random Map";
+		x++;
+		gotoXY(5, x); cout << "Options";
+		x++;
+		gotoXY(5, x); cout << "Quit\n";
 
 		system("pause>nul");
 
@@ -170,7 +175,7 @@ void showMenu()
 		{
 			gotoXY(3, y); cout << "  ";
 			y++;
-			gotoXY(3, y); cout << "->";
+			gotoXY(3, y); cout << ">";
 			choice++;
 			continue;
 		}
@@ -179,7 +184,7 @@ void showMenu()
 		{
 			gotoXY(3, y); cout << "  ";
 			y--;
-			gotoXY(3, y); cout << "->";
+			gotoXY(3, y); cout << ">";
 			choice--;
 			continue;
 		}
@@ -208,13 +213,13 @@ void showMenu()
 
 				while (true)
 				{
-					if (a == 'Y')
+					if (a == 'Y' || a == 'y')
 					{
 						system("cls");
 						cout << "You have successfully quited ..." << endl;
 						exit(0);
 					}
-					else if (a == 'N')
+					else if (a == 'N' || a == 'y')
 					{
 						system("cls");
 						showMenu();
