@@ -1,7 +1,7 @@
 #include<iostream>
 #include<windows.h> 
 #include<conio.h>
-#include<fstream> // For the dynamic maze path
+#include<fstream>
 using namespace std;
 
 class Maze {
@@ -9,11 +9,13 @@ public:
 	Maze(short r, short c) : rows(r), cols(c), currentRow(0), currentColumn(0), maze(nullptr) { Init(); };
 	~Maze();
 	void Show();
+	bool Go();
 private:
 	bool Init();
+	short GetKeyCode();
 	char** maze;
-	unsigned short rows, cols;
-	short currentRow, currentColumn;
+	unsigned short int rows, cols;
+	short int currentRow, currentColumn;
 };
 
 bool Maze::Init()
@@ -51,7 +53,7 @@ bool Maze::Init()
 
 	fi.close();
 	return true;
-}
+} //Maze::Init()
 
 void Maze::Show()
 {
@@ -61,7 +63,7 @@ void Maze::Show()
 		{
 			cout << maze[i][j];
 		}
-		cout << "\n";
+		cout << endl;
 	}
 }
 
@@ -72,6 +74,22 @@ Maze::~Maze()
 		delete[] maze[i];
 	}
 	delete[] maze;
+
+	maze = nullptr;
+	system("cls");
+}
+
+short Maze::GetKeyCode()
+{
+	short keyCode;
+	keyCode = _getch();
+
+	if ((keyCode == 0) || (keyCode == 224))
+	{
+		keyCode = _getch();
+	}
+
+	return keyCode;
 }
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
