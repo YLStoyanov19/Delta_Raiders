@@ -151,29 +151,11 @@ void gotoXY(int x, int y)
 
 void showMenu()
 {
-	cout << setw(9) << "///" << setw(9) << "///" << setw(20) << "/////////" << setw(15) << "////////" << setw(20) << "////////" << endl;
-	cout << setw(7) << "//" << setw(3) << "//" << setw(6) << "//" << setw(3) << "///" << setw(11) << "//" << setw(7) << "//" << setw(15) << "//" << setw(14) << "//" << endl;
-	cout << setw(6) << "//" << setw(4) << "//" << setw(5) << "//" << setw(4) << "//" << setw(10) << "//" << setw(7) << "//" << setw(15) << "//" << setw(14) << "//" << endl;
-	cout << setw(5) << "//" << setw(5) << "//" << setw(4) << "//" << setw(5) << "//" << setw(9) << "//" << "///////" << setw(15) << "//" << setw(14) << "//" << "//////" << endl;
-	cout << setw(4) << "//" << setw(9) << "/////" << setw(6) << "//" << setw(8) << "//" << setw(7) << "//" << setw(15) << "//" << setw(14) << "//" << endl;
-	cout << setw(3) << "//" << setw(16) << "//" << setw(7) << "//" << setw(7) << "//" << setw(15) << "//" << setw(14) << "//" << endl;
-	cout << setw(2) << "//" << setw(16) << "//" << setw(7) << "//" << setw(7) << "//" << setw(15) << "//" << "//////" << setw(8) << "//" << "//////" << endl;
-
-	cout << endl;
-
-	cout << setw(9) << "///" << setw(9) << "///" << setw(17) << "////////" << setw(8) << "//" << "//" << setw(8) << "//" << setw(7) << "//" << setw(8) << "//" << "//" << endl;
-	cout << setw(7) << "//" << setw(3) << "//" << setw(6) << "//" << setw(3) << "///" << setw(9) << "//" << setw(14) << "//" << setw(3) << "//" << setw(7) << "//" << setw(7) << "//" << setw(7) << "//" << setw(3) << "//" << endl;
-	cout << setw(6) << "//" << setw(4) << "//" << setw(5) << "//" << setw(4) << "//" << setw(8) << "//" << setw(14) << "//" << setw(4) << "//" << setw(6) << "//" << setw(7) << "//" << setw(6) << "//" << setw(4) << "//" << endl;
-	cout << setw(5) << "//" << setw(5) << "//" << setw(4) << "//" << setw(5) << "//" << setw(7) << "//" << "//////" << setw(8) << "//" << setw(5) << "//" << setw(5) << "//" << setw(7) << "//" << setw(5) << "//" << setw(5) << "//" << endl;
-	cout << setw(4) << "//" << setw(9) << "/////" << setw(6) << "//" << setw(6) << "//" << setw(14) << "//" << setw(6) << "//" << setw(4) << "//" << setw(7) << "//" << setw(4) << "//" << setw(6) << "//" << endl;
-	cout << setw(3) << "//" << setw(16) << "//" << setw(5) << "//" << setw(14) << "//" << setw(7) << "//" << setw(3) << "//" << setw(7) << "//" << setw(3) << "//" << setw(7) << "//" << setw(3) << "//" << endl;
-	cout << setw(2) << "//" << setw(16) << "//" << setw(5) << "//" << "//////" << setw(8) << "//" << setw(8) << "//" << "//" << setw(7) << "//" << "//" << setw(8) << "//" << "//" << endl;
-
 	bool flag = true;
 	int y = 2, choice = 0, x = 2;
 
 	gotoXY(x + 3, y - 2); cout << "Maze Menu";
-	gotoXY(x + 1, y); cout << "->";
+	gotoXY(x + 1, y); cout << ">";
 
 	while (flag)
 	{
@@ -246,7 +228,7 @@ void showMenu()
 						cout << "\nYou should type \"Y or N\": "; cin >> a;
 				}
 			}break;
-			}
+			} //switch
 		}
 	}
 }//showMenu
