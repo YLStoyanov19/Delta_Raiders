@@ -2,6 +2,8 @@
 #include<windows.h> 
 #include<conio.h>
 #include<fstream>
+#include<time.h>
+#include<string>
 using namespace std;
 
 class Maze {
@@ -147,6 +149,29 @@ bool Maze::Go()
 
 	return false;
 } //Maze::Go()
+
+void randomPicker(int& a, int& b)
+{
+	string random[11] = { "10-10.txt", "11-11.txt", "12-12.txt","13-13.txt", "14-14.txt", "15-15.txt", "16-16.txt", "17-17.txt", "18-18.txt", "19-19.txt", "20-20.txt" };
+	string result, num1, num2;
+
+	srand(time(NULL));
+	string finalResult = random[rand() % 11];
+
+	for (size_t i = 0; i < finalResult.size(); i++)
+	{
+		if (isdigit(finalResult[i]))
+			result += finalResult[i];
+	}
+
+	for (size_t i = 0; i < 2; i++)
+		num1 += result[i];
+	for (size_t i = 2; i < 4; i++)
+		num2 += result[i];
+
+	a = stoi(num1);
+	b = stoi(num2);
+}
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD position;
