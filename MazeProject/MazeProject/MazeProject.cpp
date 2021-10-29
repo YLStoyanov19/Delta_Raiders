@@ -4,6 +4,7 @@
 #include<fstream>
 #include<time.h>
 #include<string>
+#include<iomanip>
 using namespace std;
 
 class Maze {
@@ -173,6 +174,15 @@ void randomPicker(int& a, int& b)
 	b = stoi(num2);
 }
 
+void gamePlay()
+{
+	int n = 0, m = 0;
+	randomPicker(n, m);
+
+	Maze maze(n, m);
+	maze.Go();
+}
+
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD position;
 
@@ -230,7 +240,8 @@ void showMenu()
 			switch (choice)
 			{
 			case 0: {
-
+				gamePlay();
+				flag = false;
 			}break;
 
 			case 1: {
@@ -242,25 +253,8 @@ void showMenu()
 			}break;
 
 			case 3: {
-				char a; 
-				cout << "Do you really want to quit? Y/N: "; cin >> a;
-
-				while (true)
-				{
-					if (a == 'Y' || a == 'y')
-					{
-						system("cls");
-						cout << "You have successfully quited ..." << endl;
-						exit(0);
-					}
-					else if (a == 'N' || a == 'y')
-					{
-						system("cls");
-						showMenu();
-					}
-					else
-						cout << "\nYou should type \"Y or N\": "; cin >> a;
-				}
+				cout << setw(65) << "YOU HAVE SUCCESFULLY QUITED !!!" << endl;
+				exit(0);
 			}break;
 			} //switch
 		}
