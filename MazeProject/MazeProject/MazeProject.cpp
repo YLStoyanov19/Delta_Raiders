@@ -35,24 +35,24 @@ bool Maze::Init()
 	ifstream fi;
 	unsigned short r, c;
 
+	fi.open("10-10.txt", ios::in);
+
+	if (fi.fail())
+		return false;
+
 	maze = new char* [rows];
-	if (!maze) // Checks if the memory is allocated properly
+	if (!maze)
 		return false;
 
 	for (r = 0; r < rows; r++)
 	{
 		maze[r] = new char[cols];
 
-		if (!maze[r]) //Checks if the memory is allocated properly
+		if (!maze[r])
 			return false;
 
-		for (c = 0; c < cols; maze[r][c] = '*', c++);
+		for (c = 0; c < cols; maze[r][c] = '#', c++);
 	}
-
-	fi.open("maze.txt", ios::in);
-
-	if (fi.fail()) // Checks if the file is opened properly
-		return false;
 
 	unsigned short n;
 	fi >> n;
@@ -60,15 +60,22 @@ bool Maze::Init()
 	for (int i = 0; i < n; i++)
 	{
 		fi >> r >> c;
-		maze[r][c] = ' ';
+
+		if ((r < rows) && (c < cols))
+			maze[r][c] = ' ';
 	}
 
 	fi.close();
+
+	maze[0][0] = 'X';
+
+	Show();
 	return true;
 } //Maze::Init()
 
 void Maze::Show()
 {
+	system("cls");
 	for (short i = 0; i < rows; i++)
 	{
 		for (short j = 0; j < cols; j++)
@@ -179,7 +186,7 @@ void gamePlay()
 	int n = 0, m = 0;
 	randomPicker(n, m);
 
-	Maze maze(n, m);
+	Maze maze(10, 10);
 	maze.Go();
 }
 
@@ -240,7 +247,6 @@ void showMenu()
 			switch (choice)
 			{
 			case 0: {
-				gamePlay();
 				flag = false;
 			}break;
 
@@ -259,6 +265,8 @@ void showMenu()
 			} //switch
 		}
 	}
+
+	gamePlay();
 }//showMenu
 
 int main()
