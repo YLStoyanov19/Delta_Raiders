@@ -2,12 +2,11 @@
 #include<windows.h> 
 #include<conio.h>
 #include<fstream>
-
 using namespace std;
 
 class Maze {
 public:
-	Maze(short r, short c) : rows(r), cols(c), currentRow(0), currentColumn(0), maze(nullptr) { Init(); };
+	Maze(short r, short c);
 	~Maze();
 	void Show();
 	bool Go();
@@ -17,6 +16,15 @@ private:
 	char** maze;
 	unsigned short int rows, cols;
 	short int currentRow, currentColumn;
+};
+
+Maze::Maze(short r, short c) : rows(r), cols(c), currentRow(0), currentColumn(0), maze(nullptr) 
+{ 
+	if (!Init())
+	{
+		cout << "Can't open the .txt file";
+		exit(1);
+	}
 };
 
 bool Maze::Init()
@@ -131,6 +139,7 @@ bool Maze::Go()
 			currentRow = newRow;
 			currentColumn = newColumn;
 			maze[currentRow][currentColumn] = 'X';
+			Show();
 		}
 		else
 			Beep(500, 250);
