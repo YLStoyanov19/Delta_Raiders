@@ -35,7 +35,7 @@ bool Maze::Init()
 	ifstream fi;
 	unsigned short r, c;
 
-	fi.open("10-10.txt", ios::in);
+	fi.open("10-20.txt", ios::in);
 
 	if (fi.fail())
 		return false;
@@ -95,7 +95,6 @@ Maze::~Maze()
 	delete[] maze;
 
 	maze = nullptr;
-	system("cls");
 }
 
 short Maze::GetKeyCode()
@@ -186,8 +185,11 @@ void gamePlay()
 	int n = 0, m = 0;
 	randomPicker(n, m);
 
-	Maze maze(10, 10);
+	Maze maze(10, 20);
 	maze.Go();
+
+	cout << endl;
+	cout << setw(65) << "You have won!" << endl;
 }
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
