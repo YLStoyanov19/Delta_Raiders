@@ -5,14 +5,15 @@
 #include<time.h>
 #include<string>
 #include<iomanip>
+#include<vector>
 using namespace std;
 
 class Maze {
 public:
 	Maze(short r, short c);
 	~Maze();
-	void Show();
-	bool Go();
+	void Show(vector<int> health);
+	bool Go(size_t &size);
 private:
 	bool Init();
 	short GetKeyCode();
@@ -69,11 +70,10 @@ bool Maze::Init()
 
 	maze[0][0] = 'X';
 
-	Show();
 	return true;
 } //Maze::Init()
 
-void Maze::Show()
+void Maze::Show(vector<int> health)
 {
 	system("cls");
 	for (short i = 0; i < rows; i++)
@@ -84,6 +84,10 @@ void Maze::Show()
 		}
 		cout << endl;
 	}
+
+	cout << "\n Health: ";
+	for (auto i : health)
+		cout << i << " ";
 }
 
 Maze::~Maze()
@@ -110,11 +114,14 @@ short Maze::GetKeyCode()
 	return keyCode;
 }
 
-bool Maze::Go()
+bool Maze::Go(size_t &size)
 {
 	short int k, newRow, newColumn;
+	vector<int> health = {1, 2, 3, 4, 5, 6, 7};
 
 	do {
+		Show(health);
+
 		newRow = currentRow;
 		newColumn = currentColumn;
 
@@ -148,10 +155,21 @@ bool Maze::Go()
 			currentRow = newRow;
 			currentColumn = newColumn;
 			maze[currentRow][currentColumn] = 'X';
-			Show();
+			Show(health);
 		}
 		else
+		{
 			Beep(500, 250);
+			health.pop_back();
+
+			size = health.size();
+
+			if (health.size() == 0)
+			{
+				Show(health);
+				break;
+			}
+		}
 	} while ((currentRow != rows - 1) || (currentColumn != cols - 1));
 
 	return false;
@@ -185,11 +203,24 @@ void gamePlay()
 	int n = 0, m = 0;
 	randomPicker(n, m);
 
+<<<<<<< HEAD
 	Maze maze(12, 22);
 	maze.Go();
+=======
+	Maze maze(11, 21);
+>>>>>>> 539d0ad53fbb133dd01059402a8f93714a22ef35
 
-	cout << endl;
-	cout << setw(65) << "You have won!" << endl;
+	size_t hp;
+	maze.Go(hp);
+
+	if (hp == 0) {
+		cout << endl;
+		cout << setw(65) << "You lost the game!" << endl;
+	}
+	else {
+		cout << endl;
+		cout << setw(65) << "You won the game!" << endl;
+	}
 }
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
