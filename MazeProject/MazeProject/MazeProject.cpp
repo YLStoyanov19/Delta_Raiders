@@ -12,8 +12,8 @@ class Maze {
 public:
 	Maze(short r, short c);
 	~Maze();
-	void Show(vector<int> health);
-	bool Go(size_t &size);
+	void Show(vector<char> health);
+	bool Go(size_t& size);
 private:
 	bool Init();
 	short GetKeyCode();
@@ -22,8 +22,8 @@ private:
 	short int currentRow, currentColumn;
 };
 
-Maze::Maze(short r, short c) : rows(r), cols(c), currentRow(0), currentColumn(0), maze(nullptr) 
-{ 
+Maze::Maze(short r, short c) : rows(r), cols(c), currentRow(0), currentColumn(0), maze(nullptr)
+{
 	if (!Init())
 	{
 		cout << "Can't open the .txt file";
@@ -36,7 +36,7 @@ bool Maze::Init()
 	ifstream fi;
 	unsigned short r, c;
 
-	fi.open("12-22.txt", ios::in);
+	fi.open("16-26.txt", ios::in);
 
 	if (fi.fail())
 		return false;
@@ -73,7 +73,7 @@ bool Maze::Init()
 	return true;
 } //Maze::Init()
 
-void Maze::Show(vector<int> health)
+void Maze::Show(vector<char> health)
 {
 	system("cls");
 	for (short i = 0; i < rows; i++)
@@ -114,10 +114,10 @@ short Maze::GetKeyCode()
 	return keyCode;
 }
 
-bool Maze::Go(size_t &size)
+bool Maze::Go(size_t& size)
 {
 	short int k, newRow, newColumn;
-	vector<int> health = {1, 2, 3, 4, 5, 6, 7};
+	vector<char> health = { '@', '@', '@', '@', '@' };
 
 	do {
 		Show(health);
@@ -129,7 +129,7 @@ bool Maze::Go(size_t &size)
 
 		switch (k)
 		{
-		case 72:{
+		case 72: {
 			newRow--;
 		}break;
 
@@ -203,12 +203,7 @@ void gamePlay()
 	int n = 0, m = 0;
 	randomPicker(n, m);
 
-<<<<<<< HEAD
-	Maze maze(12, 22);
-	maze.Go();
-=======
-	Maze maze(11, 21);
->>>>>>> 539d0ad53fbb133dd01059402a8f93714a22ef35
+	Maze maze(16, 26);
 
 	size_t hp;
 	maze.Go(hp);
