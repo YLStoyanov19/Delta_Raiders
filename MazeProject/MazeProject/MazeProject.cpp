@@ -36,7 +36,7 @@ bool Maze::Init()
 	ifstream fi;
 	unsigned short r, c;
 
-	fi.open("13-23.txt", ios::in);
+	fi.open("14-24.txt", ios::in);
 
 	if (fi.fail())
 		return false;
@@ -203,7 +203,7 @@ void gamePlay()
 	int n = 0, m = 0;
 	randomPicker(n, m);
 
-	Maze maze(13, 23);
+	Maze maze(14, 24);
 
 	size_t hp;
 	maze.Go(hp);
