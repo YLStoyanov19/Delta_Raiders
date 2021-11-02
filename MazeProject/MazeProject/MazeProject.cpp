@@ -1,9 +1,10 @@
 #include<iostream>
 #include<windows.h> 
 #include<conio.h>
-#include<time.h>
-#include<string>
+#include<ctime>
+#include<cstdlib>
 #include<iomanip>
+
 using namespace std;
 
 class Maze
@@ -30,10 +31,85 @@ Maze::Maze(short r, short c) : rows(r), columns(c), CurrentRow(0), CurrentColumn
 	}
 }
 
+void Maze::GeneratePath()
+{
+	const char label = ' ';
+	short nr, nc;
+	unsigned short r = 0, c = 0, cycles, nb;
+	bool possible;
+
+	maze[0][0] = label;
+	srand(time(NULL));
+	do
+	{
+		cycles = 0;
+		do
+		{
+			possible = true;
+			if (cycles < rows * columns)
+			{
+				nr = r;
+				nc = c;
+				cycles++;
+			}
+			else // cycles is to big
+			{
+				// we need to find random ciel in maze, that contains symbol from const label
+				do
+				{
+					//					srand(time(NULL));
+					nr = rand() % rows; // now nr contains value between 0 and rows
+					nc = rand() % columns; // now nc contains value between 0 and columns
+				} while (maze[nr][nc] != label);
+				r = nr;
+				c = nc;
+				cycles = 0;
+			}
+			//			srand(time(NULL));
+			nb = rand();
+			nb = nb % 4;
+
+			switch (nb)
+			{
+			case 0:nc--;
+				break;
+			case 1:nc++;
+				break;
+			case 2:nr--;
+				break;
+			case 3:nr++;
+				break;
+			} // switch
+			if ((nr < 0) || (nr >= rows) || (nc < 0) || (nc >= columns))
+				possible = false;
+			else
+				if (maze[nr][nc] == label)
+					possible = false;
+				else
+				{
+					nb = 0;
+					if ((nr > 0) && (maze[nr - 1][nc] == label))
+						nb++;
+					if ((nr < rows - 1) && (maze[nr + 1][nc] == label))
+						nb++;
+					if ((nc > 0) && (maze[nr][nc - 1] == label))
+						nb++;
+					if ((nc < columns - 1) && (maze[nr][nc + 1] == label))
+						nb++;
+					if (nb > 1)
+						possible = false;
+				}
+		} while (!possible);
+		r = nr;
+		c = nc;
+		maze[r][c] = label;
+	} while (!((r == rows - 1) && (c == columns - 1)));
+} // Maze::GeneratePath
+
 bool Maze::Init()
 {
 	unsigned short r, c;
-	unsigned short i, n;
+
 	maze = new char* [rows];
 	if (!maze)
 		return false;
@@ -162,15 +238,13 @@ void showMenu()
 
 		gotoXY(5, x); cout << "Maze game";
 		x++;
-		gotoXY(5, x); cout << "Random Map";
-		x++;
-		gotoXY(5, x); cout << "Options";
+		gotoXY(5, x); cout << "Guide";
 		x++;
 		gotoXY(5, x); cout << "Quit\n";
 
 		system("pause>nul");
 
-		if (GetAsyncKeyState(VK_DOWN) && y != 5)
+		if (GetAsyncKeyState(VK_DOWN) && y != 4)
 		{
 			gotoXY(3, y); cout << "  ";
 			y++;
@@ -195,6 +269,16 @@ void showMenu()
 			switch (choice)
 			{
 			case 0: {
+				short rows, columns;
+				
+				cout << "Rows: "; cin >> rows;
+				cout << "Columns: "; cin >> columns;
+
+				class Maze m(rows, columns);
+				m.Go();
+
+				cout << setw(65) << "THE GAME ENDED!" << endl;
+
 				flag = false;
 			}break;
 
@@ -203,18 +287,12 @@ void showMenu()
 			}break;
 
 			case 2: {
-
-			}break;
-
-			case 3: {
 				cout << setw(65) << "YOU HAVE SUCCESFULLY QUITED !!!" << endl;
 				exit(0);
 			}break;
 			} //switch
 		}
 	}
-
-	gamePlay();
 }//showMenu
 
 int main()
