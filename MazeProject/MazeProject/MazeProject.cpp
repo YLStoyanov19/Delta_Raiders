@@ -1,222 +1,142 @@
 #include<iostream>
 #include<windows.h> 
 #include<conio.h>
-#include<fstream>
 #include<time.h>
 #include<string>
 #include<iomanip>
-#include<vector>
 using namespace std;
 
-class Maze {
+class Maze
+{
 public:
 	Maze(short r, short c);
 	~Maze();
-	void Show(vector<char> health);
-	bool Go(size_t& size);
+	void Show();
+	bool Go();
 private:
+	void GeneratePath();
 	bool Init();
 	short GetKeyCode();
 	char** maze;
-	unsigned short int rows, cols;
-	short int currentRow, currentColumn;
-};
+	unsigned short rows, columns;
+	short CurrentRow, CurrentColumn;
+}; // Maze
 
-Maze::Maze(short r, short c) : rows(r), cols(c), currentRow(0), currentColumn(0), maze(nullptr)
-{
-	if (!Init())
-	{
-		cout << "Can't open the .txt file";
+Maze::Maze(short r, short c) : rows(r), columns(c), CurrentRow(0), CurrentColumn(0), maze(nullptr) {
+	if (!Init()) {
+		cout << "Failed" << endl;
+		system("pause");
 		exit(1);
 	}
-};
+}
 
 bool Maze::Init()
 {
-	ifstream fi;
 	unsigned short r, c;
-
-	fi.open("14-24.txt", ios::in);
-
-	if (fi.fail())
-		return false;
-
+	unsigned short i, n;
 	maze = new char* [rows];
 	if (!maze)
 		return false;
-
 	for (r = 0; r < rows; r++)
 	{
-		maze[r] = new char[cols];
-
+		maze[r] = new char[columns];
 		if (!maze[r])
 			return false;
 
-		for (c = 0; c < cols; maze[r][c] = '#', c++);
+		for (c = 0; c < columns; maze[r][c] = '#', c++);
 	}
 
-	unsigned short n;
-	fi >> n;
-
-	for (int i = 0; i < n; i++)
-	{
-		fi >> r >> c;
-
-		if ((r < rows) && (c < cols))
-			maze[r][c] = ' ';
-	}
-
-	fi.close();
-
+	GeneratePath();
 	maze[0][0] = 'X';
+	Show();
 
 	return true;
-} //Maze::Init()
-
-void Maze::Show(vector<char> health)
-{
-	system("cls");
-	for (short i = 0; i < rows; i++)
-	{
-		for (short j = 0; j < cols; j++)
-		{
-			cout << maze[i][j];
-		}
-		cout << endl;
-	}
-
-	cout << "\n Health: ";
-	for (auto i : health)
-		cout << i << " ";
-}
+} // Maze::Init
 
 Maze::~Maze()
 {
-	for (int i = 0; i < rows; i++)
-	{
+	for (unsigned short i = 0; i < rows; i++)
 		delete[] maze[i];
-	}
+
 	delete[] maze;
 
 	maze = nullptr;
-}
+} // Maze::~Maze
+
+void Maze::Show()
+{
+	system("cls");
+
+	cout << " ";
+	for (unsigned short i = 0; i < columns + 2; i++)
+		cout << "&";
+
+	cout << endl;
+
+	for (unsigned short i = 0; i < rows; i++)
+	{
+		for (unsigned short j = 0; j < 1; j++)
+			cout << " &";
+
+		for (unsigned short j = 0; j < columns; j++)
+			cout << maze[i][j];
+
+		for (unsigned short j = 0; j < 1; j++)
+			cout << "&";
+
+		cout << endl;
+	}
+
+	cout << " ";
+	for (unsigned short i = 0; i < columns + 2; i++)
+		cout << "&";
+
+	cout << endl;
+} // Maze::Show
 
 short Maze::GetKeyCode()
 {
-	short keyCode;
-	keyCode = _getch();
+	short KeyCode;
+	KeyCode = _getch();
+	if ((KeyCode == 0) || (KeyCode == 224)) // функционален клавиш или някоя от стрелките
+		KeyCode = _getch();
+	return KeyCode;
+} // Maze::GetKeyCode
 
-	if ((keyCode == 0) || (keyCode == 224))
-	{
-		keyCode = _getch();
-	}
-
-	return keyCode;
-}
-
-bool Maze::Go(size_t& size)
+bool Maze::Go()
 {
-	short int k, newRow, newColumn;
-	vector<char> health = { '@', '@', '@', '@', '@' };
-
-	do {
-		Show(health);
-
-		newRow = currentRow;
-		newColumn = currentColumn;
-
+	short k;
+	short nr, nc;
+	do
+	{
+		nr = CurrentRow;
+		nc = CurrentColumn;
 		k = GetKeyCode();
-
 		switch (k)
 		{
-		case 72: {
-			newRow--;
-		}break;
-
-		case 80: {
-			newRow++;
-		}break;
-
-		case 77: {
-			newColumn++;
-		}break;
-
-		case 75: {
-			newColumn--;
-		}break;
-
-		default: Beep(500, 250);
-
-		} //switch
-
-		if ((newRow >= 0) && (newRow < rows) && (currentRow >= 0) && (currentRow < cols) && (maze[newRow][newColumn] == ' '))
+		case 72:nr--; // стрелка нагоре
+			break;
+		case 75:nc--; // стрелка наляво
+			break;
+		case 77:nc++; // стрелка надясно
+			break;
+		case 80:nr++; // стрелка надолу
+			break;
+		default:Beep(500, 250);
+		} // switch
+		if ((nr >= 0) && (nr < rows) && (nc >= 0) && (nc < columns) && (maze[nr][nc] == ' '))
 		{
-			maze[currentRow][currentColumn] = ' ';
-			currentRow = newRow;
-			currentColumn = newColumn;
-			maze[currentRow][currentColumn] = 'X';
-			Show(health);
+			maze[CurrentRow][CurrentColumn] = ' ';
+			CurrentRow = nr;
+			CurrentColumn = nc;
+			maze[CurrentRow][CurrentColumn] = 'X';
+			Show();
 		}
 		else
-		{
 			Beep(500, 250);
-			health.pop_back();
-
-			size = health.size();
-
-			if (health.size() == 0)
-			{
-				Show(health);
-				break;
-			}
-		}
-	} while ((currentRow != rows - 1) || (currentColumn != cols - 1));
-
+	} while ((CurrentRow != rows - 1) || (CurrentColumn != columns - 1)); // 27 - код на ESC
 	return false;
-} //Maze::Go()
-
-void randomPicker(int& a, int& b)
-{
-	string random[11] = { "10-10.txt", "11-11.txt", "12-12.txt","13-13.txt", "14-14.txt", "15-15.txt", "16-16.txt", "17-17.txt", "18-18.txt", "19-19.txt", "20-20.txt" };
-	string result, num1, num2;
-
-	srand(time(NULL));
-	string finalResult = random[rand() % 11];
-
-	for (size_t i = 0; i < finalResult.size(); i++)
-	{
-		if (isdigit(finalResult[i]))
-			result += finalResult[i];
-	}
-
-	for (size_t i = 0; i < 2; i++)
-		num1 += result[i];
-	for (size_t i = 2; i < 4; i++)
-		num2 += result[i];
-
-	a = stoi(num1);
-	b = stoi(num2);
-}
-
-void gamePlay()
-{
-	int n = 0, m = 0;
-	randomPicker(n, m);
-
-	Maze maze(14, 24);
-
-	size_t hp;
-	maze.Go(hp);
-
-	if (hp == 0) {
-		cout << endl;
-		cout << setw(65) << "You lost the game!" << endl;
-	}
-	else {
-		cout << endl;
-		cout << setw(65) << "You won the game!" << endl;
-	}
-}
+} // Maze::Go
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD position;
