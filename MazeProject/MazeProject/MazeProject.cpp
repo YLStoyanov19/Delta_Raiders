@@ -4,6 +4,7 @@
 #include<ctime>
 #include<cstdlib>
 #include<iomanip>
+#include<vector>
 
 using namespace std;
 
@@ -12,8 +13,8 @@ class Maze
 public:
 	Maze(short r, short c);
 	~Maze();
-	void Show();
-	bool Go();
+	void Show(vector<char> health);
+	bool Go(size_t &size);
 private:
 	void GeneratePath();
 	bool Init();
@@ -46,26 +47,25 @@ void Maze::GeneratePath()
 		do
 		{
 			possible = true;
+
 			if (cycles < rows * columns)
 			{
 				nr = r;
 				nc = c;
 				cycles++;
 			}
-			else // cycles is to big
+			else
 			{
-				// we need to find random ciel in maze, that contains symbol from const label
 				do
 				{
-					//					srand(time(NULL));
-					nr = rand() % rows; // now nr contains value between 0 and rows
-					nc = rand() % columns; // now nc contains value between 0 and columns
+					nr = rand() % rows; // nr contains value between 0 and rows
+					nc = rand() % columns; // nc contains value between 0 and columns
 				} while (maze[nr][nc] != label);
 				r = nr;
 				c = nc;
 				cycles = 0;
 			}
-			//			srand(time(NULL));
+
 			nb = rand();
 			nb = nb % 4;
 
@@ -79,6 +79,7 @@ void Maze::GeneratePath()
 				break;
 			case 3:nr++;
 				break;
+
 			} // switch
 			if ((nr < 0) || (nr >= rows) || (nc < 0) || (nc >= columns))
 				possible = false;
@@ -88,21 +89,29 @@ void Maze::GeneratePath()
 				else
 				{
 					nb = 0;
+
 					if ((nr > 0) && (maze[nr - 1][nc] == label))
+
 						nb++;
 					if ((nr < rows - 1) && (maze[nr + 1][nc] == label))
+
 						nb++;
 					if ((nc > 0) && (maze[nr][nc - 1] == label))
+
 						nb++;
 					if ((nc < columns - 1) && (maze[nr][nc + 1] == label))
+
 						nb++;
 					if (nb > 1)
 						possible = false;
+
 				}
 		} while (!possible);
+
 		r = nr;
 		c = nc;
 		maze[r][c] = label;
+
 	} while (!((r == rows - 1) && (c == columns - 1)));
 } // Maze::GeneratePath
 
@@ -124,7 +133,6 @@ bool Maze::Init()
 
 	GeneratePath();
 	maze[0][0] = 'X';
-	Show();
 
 	return true;
 } // Maze::Init
@@ -139,35 +147,44 @@ Maze::~Maze()
 	maze = nullptr;
 } // Maze::~Maze
 
-void Maze::Show()
+void Maze::Show(vector<char> health)
 {
 	system("cls");
 
+	const char sign = '&';
+
+	//Top row
 	cout << " ";
 	for (unsigned short i = 0; i < columns + 2; i++)
-		cout << "&";
+		cout << sign;
 
 	cout << endl;
 
+	//Main part
 	for (unsigned short i = 0; i < rows; i++)
 	{
 		for (unsigned short j = 0; j < 1; j++)
-			cout << " &";
+			cout << " " << sign;
 
 		for (unsigned short j = 0; j < columns; j++)
 			cout << maze[i][j];
 
 		for (unsigned short j = 0; j < 1; j++)
-			cout << "&";
+			cout << sign;
 
 		cout << endl;
 	}
 
+	//Bottom row
 	cout << " ";
 	for (unsigned short i = 0; i < columns + 2; i++)
-		cout << "&";
+		cout << sign;
 
-	cout << endl;
+	cout << endl << endl;
+
+	cout << "Health: ";
+	for (auto i : health)
+		cout << i << " ";
 } // Maze::Show
 
 short Maze::GetKeyCode()
@@ -179,38 +196,56 @@ short Maze::GetKeyCode()
 	return KeyCode;
 } // Maze::GetKeyCode
 
-bool Maze::Go()
+bool Maze::Go(size_t &size)
 {
 	short k;
 	short nr, nc;
+
+	vector<char> health = { '@', '@', '@', '@', '@', '@'};
+
 	do
 	{
+		Show(health);
+
 		nr = CurrentRow;
 		nc = CurrentColumn;
 		k = GetKeyCode();
+
 		switch (k)
 		{
-		case 72:nr--; // стрелка нагоре
+		case 72:nr--; // arrow up
 			break;
-		case 75:nc--; // стрелка наляво
+		case 75:nc--; // arrow left
 			break;
-		case 77:nc++; // стрелка надясно
+		case 77:nc++; // arrow right
 			break;
-		case 80:nr++; // стрелка надолу
+		case 80:nr++; // arrow down
 			break;
 		default:Beep(500, 250);
 		} // switch
+
 		if ((nr >= 0) && (nr < rows) && (nc >= 0) && (nc < columns) && (maze[nr][nc] == ' '))
 		{
 			maze[CurrentRow][CurrentColumn] = ' ';
 			CurrentRow = nr;
 			CurrentColumn = nc;
 			maze[CurrentRow][CurrentColumn] = 'X';
-			Show();
+			Show(health);
 		}
 		else
+		{
 			Beep(500, 250);
-	} while ((CurrentRow != rows - 1) || (CurrentColumn != columns - 1)); // 27 - код на ESC
+			health.pop_back();
+
+			size = health.size();
+
+			if (size == 0) 
+			{
+				Show(health);
+				break;
+			}
+		}
+	} while ((CurrentRow != rows - 1) || (CurrentColumn != columns - 1)); 
 	return false;
 } // Maze::Go
 
@@ -270,14 +305,18 @@ void showMenu()
 			{
 			case 0: {
 				short rows, columns;
+				size_t size;
 				
 				cout << "Rows: "; cin >> rows;
 				cout << "Columns: "; cin >> columns;
 
 				class Maze m(rows, columns);
-				m.Go();
+				m.Go(size);
 
-				cout << setw(65) << "THE GAME ENDED!" << endl;
+				if (size != 0)
+					cout << setw(65) << "\nYou won!" << endl;
+				else
+					cout << setw(65) << "\nYou lost!" << endl;
 
 				flag = false;
 			}break;
