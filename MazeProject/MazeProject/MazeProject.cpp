@@ -203,9 +203,10 @@ bool Maze::Go(size_t &size)
 
 	vector<char> health = { '@', '@', '@', '@', '@', '@'};
 
+	Show(health);
+
 	do
 	{
-		Show(health);
 
 		nr = CurrentRow;
 		nc = CurrentColumn;
@@ -314,9 +315,9 @@ void showMenu()
 				m.Go(size);
 
 				if (size != 0)
-					cout << setw(65) << "\nYou won!" << endl;
+					cout << endl << setw(65) << "You won!" << endl;
 				else
-					cout << setw(65) << "\nYou lost!" << endl;
+					cout << endl << setw(65) << "You lost!" << endl;
 
 				flag = false;
 			}break;
