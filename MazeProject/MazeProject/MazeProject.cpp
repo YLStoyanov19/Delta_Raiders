@@ -260,11 +260,6 @@ void gotoXY(int x, int y)
 	SetConsoleCursorPosition(console, position);
 }
 
-void Guide()
-{
-	
-}
-
 void showMenu()
 {
 _here:
