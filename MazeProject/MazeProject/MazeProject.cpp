@@ -260,8 +260,16 @@ void gotoXY(int x, int y)
 	SetConsoleCursorPosition(console, position);
 }
 
+void Guide()
+{
+	
+}
+
 void showMenu()
 {
+_here:
+
+	system("cls");
 	bool flag = true;
 	int y = 2, choice = 0, x = 2;
 
@@ -345,6 +353,9 @@ void showMenu()
 			} //switch
 		}
 	}
+
+	Sleep(3000);
+	goto _here;
 }//showMenu
 
 int main()
