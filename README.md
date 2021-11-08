@@ -1,4 +1,6 @@
+![Image](https://user-images.githubusercontent.com/63719259/140792761-4940eebe-86d2-43c9-99dd-b6664b4ee6d3.png)
 <h1 align="center">Hi 👋, We are Delta_Raiders. We do programming on C++. This is our project on theme "maze".</h1>
+
 
 <h2 align="left">Participants</h2>
 
